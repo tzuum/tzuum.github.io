@@ -1,622 +1,588 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张子沐 — 个人介绍</title>
-    <style>
-        /* ===== Reset & Variables ===== */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张子沐 — 个人展示 · 新媒体 / 内容方向</title>
+<meta name="description" content="张子沐，湖南师范大学文学院戏剧影视文学专业 2025 级本科生。用文字与影像讲好故事，在新媒体领域持续探索。">
+<style>
+/* ============ Reset & Tokens ============ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070912;
+  --ink:#EEF0F7; --ink2:#A9AEC4; --ink3:#6E7492;
+  --gold:#F2B877; --gold2:#D98E4A; --violet:#B79BFF; --violet2:#8F6FE8;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+  --card:rgba(255,255,255,.035); --card2:rgba(255,255,255,.06);
+  --r:16px; --ease:cubic-bezier(.22,.8,.24,1);
+}
+html,body{height:100%}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.75; overflow:hidden;
+  -webkit-font-smoothing:antialiased; user-select:none;
+}
+a{color:var(--gold);text-decoration:none}
 
-        :root {
-            --bg: #08080F;
-            --surface: rgba(255,255,255,.03);
-            --surface-hover: rgba(255,255,255,.06);
-            --border: rgba(255,255,255,.08);
-            --border-hover: rgba(255,255,255,.15);
-            --text: #EDEDEF;
-            --text-secondary: #A0A0B0;
-            --text-muted: #6B6B7B;
-            --gold: #F0A860;
-            --gold-dim: #C08040;
-            --purple: #A78BFA;
-            --purple-dim: #7C5CE7;
-            --glow-gold: rgba(240,168,96,.15);
-            --glow-purple: rgba(167,139,250,.10);
-            --radius: 14px;
-            --max-width: 880px;
-            --nav-height: 56px;
-        }
+/* ============ Ambient Background ============ */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg-aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform}
+.aurora-1{width:60vw;height:60vw;left:-16vw;top:-20vw;background:radial-gradient(circle,rgba(143,111,232,.45),transparent 68%);animation:float1 26s ease-in-out infinite}
+.aurora-2{width:55vw;height:55vw;right:-14vw;bottom:-22vw;background:radial-gradient(circle,rgba(240,168,96,.32),transparent 68%);animation:float2 30s ease-in-out infinite}
+.aurora-3{width:40vw;height:40vw;right:22vw;top:8vh;background:radial-gradient(circle,rgba(110,150,255,.16),transparent 70%);animation:float3 34s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(9vw,6vh) scale(1.12)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1.05)}50%{transform:translate(-8vw,-7vh) scale(.92)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(-6vw,9vh)}}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:52px 52px;-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 78%);mask-image:radial-gradient(ellipse at center,black 30%,transparent 78%)}
+.bg-noise{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#starfield{position:absolute;inset:0;width:100%;height:100%}
+.cursor-glow{position:fixed;pointer-events:none;z-index:1;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(183,155,255,.09),rgba(242,184,119,.04) 42%,transparent 70%);transform:translate(-50%,-50%);transition:opacity .3s;will-change:left,top}
 
-        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+/* ============ Deck / Slides ============ */
+.deck{position:relative;z-index:2;height:100vh;min-height:560px;width:100%}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(56px,8vh,90px) clamp(24px,6vw,80px) clamp(84px,11vh,110px);opacity:0;visibility:hidden;transform:translateY(26px) scale(.985);transition:opacity .62s var(--ease),transform .72s var(--ease),visibility .62s;overflow-y:auto;overflow-x:hidden}
+.slide.active{opacity:1;visibility:visible;transform:none;z-index:3}
+.slide.exit{opacity:0;transform:translateY(-20px) scale(1.01)}
+.wrap{width:min(1080px,100%);margin:auto}
+.slide::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(242,184,119,.5),transparent);opacity:0;transition:opacity .8s}
+.slide.active::before{opacity:1}
 
-        body {
-            font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.8;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            cursor: default;
-        }
+/* ============ Common Typography ============ */
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+.sec-title{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;letter-spacing:.02em;line-height:1.25;background:linear-gradient(120deg,var(--ink),var(--ink2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec-desc{color:var(--ink2);font-size:.92rem;margin-top:10px;max-width:620px}
+.center{text-align:center}
+.center .eyebrow{justify-content:center}
+.anim{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .66s var(--ease)}
+/* 默认可见；仅当 JS 标记支持动画时，才从隐藏态过渡进入 */
+.js-anim .slide:not(.active) .anim{opacity:0;transform:translateY(24px)}
+.js-anim .slide.active .anim{animation:riseIn .6s var(--ease) backwards;animation-delay:calc(var(--i,0)*70ms + 60ms)}
+@keyframes riseIn{from{opacity:.25;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-        a { color: var(--gold); text-decoration: none; transition: color .3s; }
-        a:hover { color: var(--purple); }
+/* ============ Chrome ============ */
+.topbar{position:fixed;z-index:40;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,60px);pointer-events:none}
+.brand{font-weight:800;letter-spacing:.08em;font-size:.95rem;pointer-events:auto;cursor:pointer}
+.brand span{color:var(--gold)}
+.top-right{display:flex;align-items:center;gap:18px;pointer-events:auto}
+.menu-btn{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink2);padding:7px 15px;border-radius:20px;font-size:.74rem;letter-spacing:.1em;cursor:pointer;transition:.3s;display:flex;align-items:center;gap:8px}
+.menu-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(242,184,119,.08)}
+.folio{font-family:Georgia,serif;font-size:.8rem;color:var(--ink3);letter-spacing:.14em}
+.folio b{color:var(--ink);font-size:1.05rem}
+.progress{position:fixed;z-index:41;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--violet));width:0;transition:width .6s var(--ease);box-shadow:0 0 12px rgba(242,184,119,.6)}
+.dots{position:fixed;z-index:40;right:clamp(16px,3vw,34px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:.35s}
+.dot:hover{background:var(--ink2);transform:scale(1.3)}
+.dot.on{background:var(--gold);box-shadow:0 0 0 4px rgba(242,184,119,.14),0 0 12px rgba(242,184,119,.7)}
+.controls{position:fixed;z-index:40;bottom:clamp(18px,3vh,30px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px}
+.nav-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--ink);font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:.3s;backdrop-filter:blur(10px)}
+.nav-btn:hover:not(:disabled){background:rgba(242,184,119,.14);border-color:var(--gold);color:var(--gold);transform:scale(1.08);box-shadow:0 0 20px rgba(242,184,119,.2)}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed}
+.nav-count{font-family:Georgia,serif;font-size:.85rem;color:var(--ink2);min-width:66px;text-align:center;letter-spacing:.08em}
+.nav-count b{color:var(--gold);font-size:1.15rem}
+.hint{position:fixed;z-index:40;bottom:clamp(22px,3.5vh,34px);left:clamp(20px,5vw,60px);font-size:.68rem;color:var(--ink3);letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.key{display:inline-block;border:1px solid var(--line2);border-radius:4px;padding:1px 6px;font-size:.62rem;color:var(--ink2);background:rgba(255,255,255,.04)}
 
-        /* ===== Cursor Glow ===== */
-        .cursor-glow {
-            position: fixed; pointer-events: none; z-index: 0;
-            width: 420px; height: 420px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(167,139,250,.06) 0%, rgba(240,168,96,.03) 40%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: opacity .3s;
-            will-change: left, top;
-        }
+/* ============ Cover ============ */
+.cover .wrap{text-align:center}
+.cover-badge{display:inline-flex;align-items:center;gap:9px;padding:7px 20px;border-radius:30px;background:rgba(242,184,119,.09);border:1px solid rgba(242,184,119,.28);color:var(--gold);font-size:.76rem;font-weight:600;letter-spacing:.1em;margin-bottom:clamp(18px,4vh,34px);backdrop-filter:blur(8px)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(242,184,119,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(242,184,119,0)}100%{box-shadow:0 0 0 0 rgba(242,184,119,0)}}
+.cover-name{font-size:clamp(3.4rem,10vw,6.4rem);font-weight:900;letter-spacing:.12em;line-height:1.1;background:linear-gradient(115deg,var(--gold) 5%,#FFF 42%,var(--violet) 88%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 28px rgba(242,184,119,.12))}
+.cover-en{font-family:Georgia,serif;letter-spacing:.5em;font-size:.78rem;color:var(--ink3);margin:14px 0 clamp(16px,3vh,26px);text-indent:.5em}
+.cover-tag{font-size:clamp(1rem,2.2vw,1.3rem);color:var(--ink);font-weight:500}
+.cover-sub{color:var(--ink2);font-size:.9rem;margin-top:8px;max-width:520px;margin-left:auto;margin-right:auto}
+.cover-stats{display:flex;justify-content:center;gap:clamp(28px,7vw,72px);margin-top:clamp(26px,5vh,46px);flex-wrap:wrap}
+.cstat .n{font-family:Georgia,serif;font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cstat .l{font-size:.73rem;color:var(--ink3);margin-top:8px;letter-spacing:.06em}
+.scroll-cue{margin-top:clamp(22px,4vh,38px);font-size:.7rem;color:var(--ink3);letter-spacing:.12em;display:inline-flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue .ar{width:22px;height:34px;border:1px solid var(--line2);border-radius:12px;position:relative}
+.scroll-cue .ar::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:6px;border-radius:3px;background:var(--gold);transform:translateX(-50%);animation:scrolldot 1.7s infinite}
+@keyframes scrolldot{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:20px}}
 
-        /* ===== Starfield Canvas ===== */
-        #starfield {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
-        }
+/* ============ About ============ */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,54px);align-items:start;margin-top:26px}
+.about-text p{color:var(--ink2);font-size:.95rem;line-height:2;margin-bottom:15px}
+.about-text strong{color:var(--ink);font-weight:700}
+.about-text .hl{color:var(--gold);font-weight:700}
+.traits{display:flex;flex-direction:column;gap:12px}
+.trait{display:flex;gap:14px;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);transition:.35s var(--ease)}
+.trait:hover{background:var(--card2);border-color:var(--line2);transform:translateX(4px)}
+.trait .ic{font-size:1.35rem;flex:none;width:34px;text-align:center}
+.trait h4{font-size:.9rem;margin-bottom:2px}
+.trait p{font-size:.78rem;color:var(--ink3);line-height:1.6}
+.quote{margin-top:24px;padding:16px 24px;border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(242,184,119,.07),transparent);border-radius:0 12px 12px 0}
+.quote p{font-size:.95rem;font-weight:600;color:var(--ink)}
+.quote span{font-size:.75rem;color:var(--ink3)}
 
-        /* ===== Nav ===== */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            height: var(--nav-height);
-            background: rgba(8,8,15,.75);
-            backdrop-filter: blur(20px) saturate(140%);
-            -webkit-backdrop-filter: blur(20px) saturate(140%);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nav-inner { display: flex; align-items: center; gap: 32px; padding: 0 24px; }
-        .nav-logo {
-            font-size: 1rem; font-weight: 700; color: var(--text);
-            letter-spacing: .04em; transition: color .3s;
-        }
-        .nav-logo:hover { color: var(--gold); }
-        .nav-links { display: flex; gap: 20px; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary); font-size: .8rem; font-weight: 500;
-            letter-spacing: .04em; transition: all .3s; position: relative;
-        }
-        .nav-links a::after {
-            content: ""; position: absolute; bottom: -4px; left: 50%;
-            width: 0; height: 1.5px; background: var(--gold);
-            transition: all .3s; transform: translateX(-50%);
-        }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-toggle { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text); }
+/* ============ Cards ============ */
+.tl{display:flex;flex-direction:column;gap:13px;margin-top:26px}
+.tl-item{display:grid;grid-template-columns:1fr auto;gap:16px;padding:20px 24px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);transition:.4s var(--ease);position:relative;overflow:hidden}
+.tl-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),var(--violet));opacity:.65}
+.tl-item:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:5px 13px;border-radius:14px;height:fit-content;white-space:nowrap}
+.tag.g{color:var(--gold);background:rgba(242,184,119,.12);border:1px solid rgba(242,184,119,.28)}
+.tag.v{color:var(--violet);background:rgba(183,155,255,.1);border:1px solid rgba(183,155,255,.25)}
+.tl-item h4{font-size:1rem;margin-bottom:2px}
+.tl-item .sub{font-size:.76rem;color:var(--ink3);margin-bottom:9px}
+.tl-item ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.tl-item li{font-size:.84rem;color:var(--ink2);padding-left:15px;position:relative;line-height:1.65}
+.tl-item li::before{content:"";position:absolute;left:2px;top:.68em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.tl-item li b{color:var(--gold)}
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.proj{padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);position:relative;overflow:hidden;transition:.4s var(--ease)}
+.proj::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(183,155,255,.13),transparent 70%);pointer-events:none}
+.proj:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-3px)}
+.proj .meta{font-size:.7rem;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:7px}
+.proj h4{font-size:.98rem;margin-bottom:8px;line-height:1.5}
+.proj p{font-size:.82rem;color:var(--ink2);line-height:1.7}
+.proj p b{color:var(--gold)}
 
-        /* ===== Section Common ===== */
-        section { padding: 80px 24px; position: relative; z-index: 1; }
-        .container { max-width: var(--max-width); margin: 0 auto; position: relative; }
-        .section-header { margin-bottom: 40px; }
-        .section-header.centered { text-align: center; }
-        .section-label {
-            font-size: .7rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: .18em; color: var(--gold); margin-bottom: 10px;
-        }
-        .section-title {
-            font-size: 1.9rem; font-weight: 800; letter-spacing: .02em;
-            background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+/* ============ Internship ============ */
+.intern-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-top:24px}
+.intern-main{padding:24px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);position:relative;overflow:hidden}
+.intern-main::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),var(--violet));opacity:.7}
+.im-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+.im-head h4{font-size:1.05rem;margin-bottom:3px}
+.im-head .sub{font-size:.76rem;color:var(--ink3)}
+.intern-main ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.intern-main li{font-size:.86rem;color:var(--ink2);padding-left:16px;position:relative;line-height:1.7}
+.intern-main li::before{content:"";position:absolute;left:2px;top:.68em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.intern-main li b{color:var(--gold)}
+.intern-side{display:flex;flex-direction:column;gap:10px}
+.istat{padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:.35s var(--ease)}
+.istat:hover{background:var(--card2);border-color:var(--line2);transform:translateX(3px)}
+.istat .n{font-family:Georgia,serif;font-size:1.35rem;font-weight:800;line-height:1.1;background:linear-gradient(135deg,var(--gold),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.istat .l{font-size:.72rem;color:var(--ink3);margin-top:3px}
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.work{padding:13px 15px;background:var(--card);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:11px;transition:.35s var(--ease)}
+.work:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-2px)}
+.work .wk-ic{font-size:1.35rem;flex:none}
+.work h4{font-size:.85rem}
+.work p{font-size:.7rem;color:var(--ink3)}
+.work .ev-btn{margin:0 0 0 auto;padding:4px 10px;font-size:.66rem;flex:none}
+.sub-label{font-size:.72rem;font-weight:700;letter-spacing:.16em;color:var(--violet);display:flex;align-items:center;gap:9px;margin-top:20px}
+.sub-label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 8px rgba(183,155,255,.7)}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:10px}
 
-        /* ===== Glass Card ===== */
-        .glass-card {
-            background: var(--surface);
-            backdrop-filter: blur(16px) saturate(120%);
-            -webkit-backdrop-filter: blur(16px) saturate(120%);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            transition: all .4s cubic-bezier(.25,.8,.25,1.2);
-        }
-        .glass-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-hover);
-            box-shadow: 0 0 30px var(--glow-gold), 0 0 60px var(--glow-purple);
-            transform: translateY(-2px);
-        }
+/* ============ Awards ============ */
+.awards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:24px}
+.award{padding:20px 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:center;transition:.4s var(--ease);position:relative}
+.award:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-3px)}
+.award .rk{font-size:1.7rem;margin-bottom:7px}
+.award h4{font-size:.83rem;line-height:1.5;margin-bottom:3px}
+.award .nt{font-size:.71rem;color:var(--ink3)}
 
-        /* ===== Fade-in on Scroll ===== */
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity .7s ease, transform .7s ease;
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+/* ============ Skills ============ */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:24px}
+.skill{padding:20px 14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:center;transition:.4s var(--ease)}
+.skill:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-3px)}
+.skill .ic{font-size:1.7rem;margin-bottom:9px}
+.skill h4{font-size:.82rem;color:var(--gold);margin-bottom:11px}
+.skill .tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.stag{font-size:.68rem;padding:3px 9px;border-radius:11px;background:rgba(242,184,119,.08);color:var(--gold2);border:1px solid rgba(242,184,119,.14)}
 
-        /* ===== Hero ===== */
-        .hero { padding-top: calc(var(--nav-height) + 80px); padding-bottom: 80px; text-align: center; }
-        .hero-badge {
-            display: inline-block; padding: 6px 20px; border-radius: 20px;
-            background: rgba(240,168,96,.1); color: var(--gold);
-            border: 1px solid rgba(240,168,96,.2);
-            font-size: .75rem; font-weight: 600; letter-spacing: .06em; margin-bottom: 24px;
-            backdrop-filter: blur(8px);
-        }
-        .hero-name {
-            font-size: 3.2rem; font-weight: 900; letter-spacing: .06em;
-            background: linear-gradient(135deg, #F0A860 0%, #EDEDEF 40%, #A78BFA 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; margin-bottom: 10px; line-height: 1.3;
-        }
-        .hero-tag { font-size: 1.05rem; color: var(--text-secondary); font-weight: 400; letter-spacing: .03em; }
-        .hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 40px; flex-wrap: wrap; }
-        .hero-stat { text-align: center; }
-        .hero-stat .num {
-            font-size: 2.4rem; font-weight: 900;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--purple) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; font-family: "Georgia", "Times New Roman", serif; line-height: 1;
-        }
-        .hero-stat .lbl { font-size: .78rem; color: var(--text-muted); margin-top: 6px; letter-spacing: .04em; }
+/* ============ Evidence buttons ============ */
+.ev-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:5px 13px;border-radius:16px;border:1px solid rgba(183,155,255,.32);background:rgba(183,155,255,.08);color:var(--violet);font-size:.71rem;cursor:pointer;transition:.3s}
+.ev-btn:hover{background:rgba(183,155,255,.18);border-color:var(--violet);transform:translateY(-1px)}
+.award .ev-btn{margin-top:10px}
 
-        /* ===== About ===== */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-        .about-text { font-size: .95rem; color: var(--text-secondary); line-height: 1.9; }
-        .about-text strong { color: var(--text); }
-        .about-highlights { display: flex; flex-direction: column; gap: 12px; }
-        .hl-item {
-            display: flex; align-items: flex-start; gap: 12px; padding: 18px 20px;
-        }
-        .hl-item .hl-icon { font-size: 1.4rem; flex-shrink: 0; }
-        .hl-item .hl-content h4 { font-size: .88rem; margin-bottom: 3px; color: var(--text); }
-        .hl-item .hl-content p { font-size: .78rem; color: var(--text-muted); line-height: 1.6; }
+/* ============ Contact ============ */
+.contact-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.cc{padding:20px 28px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);display:flex;align-items:center;gap:14px;min-width:210px;transition:.4s var(--ease)}
+.cc:hover{background:var(--card2);border-color:var(--line2);transform:translateY(-3px)}
+.cc .ic{font-size:1.5rem}
+.cc .lb{font-size:.7rem;color:var(--ink3);letter-spacing:.06em}
+.cc .vl{font-size:.92rem;font-weight:600}
+.cc .vl a{color:var(--ink);transition:color .3s}
+.cc .vl a:hover{color:var(--gold)}
+.ending{margin-top:clamp(24px,5vh,44px);font-size:clamp(1.1rem,2.6vw,1.6rem);font-weight:700;letter-spacing:.04em;background:linear-gradient(100deg,var(--gold),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
-        /* ===== Quote Strip ===== */
-        .quote-strip {
-            position: relative; z-index: 1; text-align: center; padding: 56px 24px;
-            background: linear-gradient(135deg, rgba(240,168,96,.06) 0%, rgba(167,139,250,.06) 100%);
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-        }
-        .quote-strip .q-text {
-            font-size: 1.15rem; font-weight: 600; max-width: 560px;
-            margin: 0 auto; letter-spacing: .04em; line-height: 1.9;
-            color: var(--text);
-        }
-        .quote-strip .q-author { font-size: .8rem; margin-top: 12px; color: var(--text-muted); }
+/* ============ Menu overlay ============ */
+.overlay{position:fixed;inset:0;z-index:60;background:rgba(5,7,16,.82);backdrop-filter:blur(22px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.4s}
+.overlay.open{opacity:1;visibility:visible}
+.menu-panel{width:min(440px,88vw);text-align:center}
+.menu-panel h3{font-size:.75rem;letter-spacing:.28em;color:var(--gold);margin-bottom:24px;text-transform:uppercase}
+.menu-list{display:flex;flex-direction:column;gap:6px}
+.menu-item{display:flex;align-items:center;gap:16px;padding:13px 20px;border-radius:12px;cursor:pointer;transition:.3s;border:1px solid transparent;text-align:left;color:var(--ink2)}
+.menu-item:hover,.menu-item.on{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--ink)}
+.menu-item .no{font-family:Georgia,serif;color:var(--gold);font-size:.9rem;width:26px}
+.menu-item .tx{font-size:.95rem;font-weight:600}
+.menu-close{position:absolute;top:26px;right:30px;font-size:1.5rem;color:var(--ink2);cursor:pointer;background:none;border:none;transition:.3s}
+.menu-close:hover{color:var(--gold);transform:rotate(90deg)}
 
-        /* ===== Timeline ===== */
-        .tl-card {
-            padding: 26px 30px; margin-bottom: 16px;
-            display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start;
-        }
-        .tl-card .tl-tag {
-            font-size: .7rem; font-weight: 700; letter-spacing: .06em;
-            padding: 5px 14px; border-radius: 14px; white-space: nowrap; height: fit-content;
-        }
-        .tl-card .tl-tag.fill {
-            background: rgba(240,168,96,.15); color: var(--gold);
-            border: 1px solid rgba(240,168,96,.25);
-        }
-        .tl-card .tl-tag.ghost {
-            color: var(--purple); border: 1px solid rgba(167,139,250,.25);
-            background: rgba(167,139,250,.06);
-        }
-        .tl-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
-        .tl-sub { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; }
-        .tl-details { list-style: none; }
-        .tl-details li {
-            position: relative; padding-left: 16px; margin-bottom: 5px;
-            font-size: .88rem; color: var(--text-secondary); line-height: 1.7;
-        }
-        .tl-details li::before {
-            content: "·"; position: absolute; left: 4px; color: var(--gold); font-weight: bold;
-        }
-        .tl-details li strong { color: var(--gold); }
+/* ============ Lightbox ============ */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(4,6,14,.94);backdrop-filter:blur(18px);display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:.4s}
+.lb.open{opacity:1;visibility:visible}
+.lb-head{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,4vw,50px);color:var(--ink2)}
+.lb-head .lb-count{font-family:Georgia,serif;letter-spacing:.1em;font-size:.9rem}
+.lb-head .lb-count b{color:var(--gold);font-size:1.2rem}
+.lb-close{background:none;border:1px solid var(--line2);color:var(--ink);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:.3s}
+.lb-close:hover{background:rgba(242,184,119,.15);border-color:var(--gold);color:var(--gold);transform:rotate(90deg)}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,36px);padding:0 clamp(12px,4vw,50px);min-height:0}
+.lb-arrow{width:46px;height:46px;flex:none;border-radius:50%;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--ink);cursor:pointer;font-size:1.2rem;transition:.3s;display:grid;place-items:center}
+.lb-arrow:hover{background:rgba(242,184,119,.14);border-color:var(--gold)}
+.lb-imgbox{max-width:min(720px,72vw);max-height:66vh;display:flex;align-items:center;justify-content:center;transition:.35s var(--ease)}
+.lb-imgbox.swap{opacity:0;transform:scale(.97)}
+.lb-imgbox img{max-width:100%;max-height:66vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.6);border:1px solid var(--line)}
+.lb-info{text-align:center;padding:14px 20px 6px}
+.lb-info h4{font-size:1rem;margin-bottom:3px}
+.lb-info p{font-size:.8rem;color:var(--ink3)}
+.lb-thumbs{display:flex;gap:8px;justify-content:center;padding:10px 20px 24px;flex-wrap:wrap}
+.lb-thumb{width:56px;height:50px;border-radius:7px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.5;transition:.3s;padding:0;background:none}
+.lb-thumb img{width:100%;height:100%;object-fit:cover}
+.lb-thumb:hover{opacity:.85}
+.lb-thumb.on{opacity:1;border-color:var(--gold);box-shadow:0 0 14px rgba(242,184,119,.4)}
 
-        /* ===== Awards ===== */
-        .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .award-card { padding: 24px 18px; text-align: center; }
-        .award-card .aw-rank { font-size: 2rem; margin-bottom: 10px; }
-        .award-card h4 { font-size: .88rem; line-height: 1.5; margin-bottom: 4px; }
-        .award-card .aw-note { font-size: .75rem; color: var(--text-muted); }
-
-        /* ===== Skills ===== */
-        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .skill-card { padding: 22px 16px; text-align: center; }
-        .skill-card .sk-icon { font-size: 1.8rem; margin-bottom: 10px; }
-        .skill-card h4 { font-size: .82rem; font-weight: 700; margin-bottom: 10px; color: var(--gold); }
-        .skill-card .sk-tags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-        .sk-tag {
-            display: inline-block; padding: 4px 11px; border-radius: 12px;
-            font-size: .7rem; background: rgba(240,168,96,.08);
-            color: var(--gold-dim); font-weight: 500; border: 1px solid rgba(240,168,96,.12);
-        }
-
-        /* ===== Contact ===== */
-        .contact-section { text-align: center; }
-        .contact-inner { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-        .contact-card {
-            display: flex; align-items: center; gap: 12px; padding: 18px 26px;
-            min-width: 190px;
-        }
-        .contact-card .cc-icon { font-size: 1.4rem; }
-        .contact-card .cc-label { font-size: .72rem; color: var(--text-muted); letter-spacing: .04em; }
-        .contact-card .cc-value { font-size: .9rem; font-weight: 600; }
-        .contact-card .cc-value a { color: var(--text); transition: color .3s; }
-        .contact-card .cc-value a:hover { color: var(--gold); }
-
-        /* ===== Footer ===== */
-        footer { position: relative; z-index: 1; text-align: center; padding: 28px; font-size: .75rem; color: var(--text-muted); }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .nav-inner { gap: 16px; }
-            .nav-links { display: none; }
-            .nav-links.open {
-                display: flex; flex-direction: column; position: absolute;
-                top: var(--nav-height); left: 0; right: 0;
-                background: rgba(8,8,15,.95); backdrop-filter: blur(20px);
-                padding: 16px 24px; gap: 12px; border-bottom: 1px solid var(--border);
-            }
-            .nav-toggle { display: block; }
-            .hero-name { font-size: 2.2rem; }
-            .hero-stats { gap: 24px; }
-            .hero-stat .num { font-size: 1.8rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .tl-card { grid-template-columns: 1fr; }
-            .tl-card .tl-tag { justify-self: start; }
-            .awards-grid { grid-template-columns: 1fr; }
-            .skills-grid { grid-template-columns: 1fr 1fr; }
-            section { padding: 56px 20px; }
-            .hero { padding-top: calc(var(--nav-height) + 56px); padding-bottom: 56px; }
-            .section-title { font-size: 1.5rem; }
-        }
-        @media (max-width: 400px) {
-            .skills-grid { grid-template-columns: 1fr; }
-            .hero-name { font-size: 1.8rem; }
-        }
-    </style>
+/* ============ Responsive ============ */
+@media(max-width:860px){
+  .about-grid{grid-template-columns:1fr;gap:18px}
+  .projects,.comp-grid,.works{grid-template-columns:1fr}
+  .intern-grid{grid-template-columns:1fr}
+  .intern-side{flex-direction:row;flex-wrap:wrap}
+  .istat{flex:1;min-width:130px}
+  .skills{grid-template-columns:1fr 1fr}
+  .awards{grid-template-columns:1fr 1fr}
+  .hint{display:none}
+  .slide{padding:70px 22px 96px}
+}
+@media(max-width:520px){
+  .awards{grid-template-columns:1fr}
+  .cover-name{letter-spacing:.06em}
+  .cover-stats{gap:22px 34px}
+  .topbar{padding:0 20px}
+  .lb-imgbox,.lb-imgbox img{max-height:56vh}
+  .lb-arrow{width:38px;height:38px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
-<!-- Cursor Glow -->
+<div class="bg">
+  <div class="bg-aurora aurora-1"></div>
+  <div class="bg-aurora aurora-2"></div>
+  <div class="bg-aurora aurora-3"></div>
+  <div class="bg-grid"></div>
+  <canvas id="starfield"></canvas>
+  <div class="bg-noise"></div>
+</div>
 <div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- Starfield -->
-<canvas id="starfield"></canvas>
-
-<!-- Nav -->
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="nav-logo">张子沐</a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about">关于</a></li>
-            <li><a href="#experience">经历</a></li>
-            <li><a href="#awards">获奖</a></li>
-            <li><a href="#skills">技能</a></li>
-            <li><a href="#contact">联系</a></li>
-        </ul>
-        <button class="nav-toggle" id="navToggle" aria-label="菜单">&#9776;</button>
-    </div>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-badge">✦ 寻找实习机会 · 新媒体 / 内容方向</div>
-        <h1 class="hero-name">张子沐</h1>
-        <p class="hero-tag">湖南师范大学 · 戏剧影视文学 · 2025 级本科</p>
-        <p style="color: var(--text-muted); max-width: 480px; margin: 10px auto 0; font-size: .9rem;">
-            用文字与影像讲好故事，在新媒体领域持续探索
-        </p>
-        <div class="hero-stats">
-            <div class="hero-stat"><div class="num">3000+</div><div class="lbl">推文阅读量</div></div>
-            <div class="hero-stat"><div class="num">3</div><div class="lbl">项获奖荣誉</div></div>
-            <div class="hero-stat"><div class="num">2</div><div class="lbl">段实践经历</div></div>
-        </div>
-    </div>
-</section>
-
-<!-- About -->
-<section id="about">
-    <div class="container">
-        <div class="section-header reveal">
-            <p class="section-label">About Me</p>
-            <h2 class="section-title">关于我</h2>
-        </div>
-        <div class="about-grid">
-            <div class="reveal">
-                <p class="about-text">
-                    我就读于<strong>湖南师范大学戏剧影视文学专业</strong>，2025 级本科生。系统学习剧本写作、影视理论与新媒体传播，逐渐明确了方向——<strong>成为兼具内容策划力与视觉表达能力的新媒体人</strong>。
-                </p>
-                <p class="about-text" style="margin-top: 14px;">
-                    在青神县融媒体中心的实习中，第一次将所学应用于真实场景：从选题策划到采编执行，从文案打磨到 AI 短视频制作，完整参与了内容生产的每一个环节。这段经历让我更加确信，<strong>创作是我想要持续走的路</strong>。
-                </p>
-            </div>
-            <div class="about-highlights reveal">
-                <div class="hl-item glass-card">
-                    <span class="hl-icon">🔍</span>
-                    <div class="hl-content">
-                        <h4>认真负责，追求品质</h4>
-                        <p>对待每一项任务都力求做到最好，实习期间多次主动优化稿件细节。</p>
-                    </div>
-                </div>
-                <div class="hl-item glass-card">
-                    <span class="hl-icon">🚀</span>
-                    <div class="hl-content">
-                        <h4>主动学习，拥抱新工具</h4>
-                        <p>自学 AI 辅助创作工具，融入短视频生产流程，显著提升产出效率。</p>
-                    </div>
-                </div>
-                <div class="hl-item glass-card">
-                    <span class="hl-icon">🤝</span>
-                    <div class="hl-content">
-                        <h4>善于沟通，乐于协作</h4>
-                        <p>担任班长和校园媒体干事，在团队中既能主动担当，也懂得倾听与配合。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Quote -->
-<div class="quote-strip">
-    <p class="q-text reveal">"对世界保持好奇，对创作保持真诚。每一个好故事，都始于认真对待。"</p>
-    <p class="q-author reveal">— 我的创作信条</p>
+<div class="progress" id="progress"></div>
+<div class="topbar">
+  <div class="brand" data-go="0">张子<span>沐</span> · ZZM</div>
+  <div class="top-right">
+    <div class="folio"><b id="folioCur">01</b> / 06</div>
+    <button class="menu-btn" id="menuBtn">☰ 目录</button>
+  </div>
+</div>
+<div class="dots" id="dots"></div>
+<div class="hint"><span class="key">←</span><span class="key">→</span> 翻页 · 滚轮 / 滑动切换</div>
+<div class="controls">
+  <button class="nav-btn" id="prevBtn" aria-label="上一页">‹</button>
+  <div class="nav-count"><b id="curNo">01</b> / 06</div>
+  <button class="nav-btn" id="nextBtn" aria-label="下一页">›</button>
 </div>
 
-<!-- Experience -->
-<section id="experience">
-    <div class="container">
-        <div class="section-header reveal">
-            <p class="section-label">Experience & Education</p>
-            <h2 class="section-title">经历与教育</h2>
-        </div>
+<main class="deck" id="deck">
 
-        <div class="tl-card glass-card reveal">
-            <div>
-                <p class="tl-title">湖南师范大学 · 戏剧影视文学</p>
-                <p class="tl-sub">本科 · 2025 — 2029</p>
-                <ul class="tl-details">
-                    <li>系统学习剧本创作、影视理论与新媒体传播</li>
-                    <li>担任<strong>班级班长</strong>，统筹班级事务，获班级干部评议优秀</li>
-                    <li>加入<strong>星网影像传媒部</strong>，参与校园活动拍摄与后期剪辑</li>
-                </ul>
-            </div>
-            <span class="tl-tag ghost">教育</span>
-        </div>
-
-        <div class="tl-card glass-card reveal">
-            <div>
-                <p class="tl-title">四川省青神县融媒体中心</p>
-                <p class="tl-sub">实习记者 / 内容编辑 · 2026.01 — 2026.02</p>
-                <ul class="tl-details">
-                    <li>负责新闻采编与文案撰写，完成从选题策划到发布的完整流程</li>
-                    <li>运用 AI 工具进行短视频创意策划与制作，提升内容生产效率</li>
-                    <li>独立负责的推文获得 <strong>3000+ 阅读量</strong></li>
-                </ul>
-            </div>
-            <span class="tl-tag fill">实习</span>
-        </div>
+  <!-- 1 COVER -->
+  <section class="slide cover active" data-title="封面">
+    <div class="wrap">
+      <div class="cover-badge anim" style="--i:0"><span class="pulse"></span>寻找实习机会 · 新媒体 / 内容方向</div>
+      <h1 class="cover-name anim" style="--i:1">张子沐</h1>
+      <div class="cover-en anim" style="--i:2">ZHANG ZIMU</div>
+      <div class="cover-tag anim" style="--i:3">湖南师范大学 · 戏剧影视文学 · 2025 级本科</div>
+      <p class="cover-sub anim" style="--i:4">用文字与影像讲好故事，在新媒体领域持续探索</p>
+      <div class="cover-stats anim" style="--i:5">
+        <div class="cstat"><div class="n" data-count="90.94">0</div><div class="l">综测分 · 专业第 8</div></div>
+        <div class="cstat"><div class="n" data-count="6">0</div><div class="l">项获奖荣誉</div></div>
+        <div class="cstat"><div class="n" data-count="3000" data-suffix="+">0</div><div class="l">推文阅读量</div></div>
+      </div>
+      <div class="scroll-cue anim" style="--i:6"><span>开始浏览</span><span class="ar"></span></div>
     </div>
-</section>
+  </section>
 
-<!-- Awards -->
-<section id="awards">
-    <div class="container">
-        <div class="section-header centered reveal">
-            <p class="section-label">Honors & Awards</p>
-            <h2 class="section-title">获奖荣誉</h2>
+  <!-- 2 ABOUT -->
+  <section class="slide" data-title="关于我">
+    <div class="wrap">
+      <div class="anim" style="--i:0"><div class="eyebrow">01 · About Me</div><h2 class="sec-title">关于我</h2></div>
+      <div class="about-grid">
+        <div class="about-text anim" style="--i:1">
+          <p>我就读于<strong>湖南师范大学文学院戏剧影视文学专业</strong>，2025 级本科生。系统学习剧本创作、影视理论与新媒体传播，学业综合测评 <span class="hl">90.94 分、专业第八</span>，GPA 4.14。现任班级班长、星网影像传媒部干事，学生干部考核 <span class="hl">99 分 · 优秀</span>。</p>
+          <p>从青神县融媒体中心的新闻采编实习，到牵头班级团支部建设，我一次次把所学用于真实场景：从选题策划到采编执行，从文案打磨到 AI 短视频制作，完整参与内容生产的每一个环节。</p>
+          <div class="quote"><p>"对世界保持好奇，对创作保持真诚。每一个好故事，都始于认真对待。"</p><span>— 我的创作信条</span></div>
         </div>
-        <div class="awards-grid">
-            <div class="award-card glass-card reveal">
-                <div class="aw-rank">🥇</div>
-                <h4>电子商务竞赛（实战赛）一等奖</h4>
-                <p class="aw-note">湖南师范大学第十届 · 2025</p>
-            </div>
-            <div class="award-card glass-card reveal">
-                <div class="aw-rank">🥈</div>
-                <h4>"拾光"剪辑大赛二等奖</h4>
-                <p class="aw-note">校级 · 2025</p>
-            </div>
-            <div class="award-card glass-card reveal">
-                <div class="aw-rank">✨</div>
-                <h4>班级干部评议优秀</h4>
-                <p class="aw-note">2025 — 2026 学年</p>
-            </div>
+        <div class="traits anim" style="--i:2">
+          <div class="trait"><span class="ic">🔍</span><div><h4>认真负责，追求品质</h4><p>对待每项任务力求做到最好，牵头班级建设并获院级荣誉。</p></div></div>
+          <div class="trait"><span class="ic">🚀</span><div><h4>主动学习，拥抱新工具</h4><p>自学 AI 辅助创作工具融入短视频流程，显著提升产出效率。</p></div></div>
+          <div class="trait"><span class="ic">🤝</span><div><h4>善于沟通，乐于协作</h4><p>身兼班长与校园媒体干事，既能主动担当，也懂倾听配合。</p></div></div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Skills -->
-<section id="skills">
-    <div class="container">
-        <div class="section-header centered reveal">
-            <p class="section-label">Skills & Certificates</p>
-            <h2 class="section-title">技能证书</h2>
+  <!-- 3 INTERNSHIP -->
+  <section class="slide" data-title="实习实践">
+    <div class="wrap">
+      <div class="anim" style="--i:0"><div class="eyebrow">02 · Internship & Practice</div><h2 class="sec-title">实习与内容实践</h2><p class="sec-desc">在融媒体的真实采编场景中，把专业能力转化为可量化的内容成果。</p></div>
+      <div class="intern-grid">
+        <div class="intern-main anim" style="--i:1">
+          <div class="im-head"><div><h4>四川省青神县融媒体中心</h4><div class="sub">实习记者 / 内容编辑 · 2026.01 — 2026.02</div></div><span class="tag g">实习</span></div>
+          <ul>
+            <li>负责新闻采编与文案撰写，独立完成从<b>选题策划到发布的完整流程</b></li>
+            <li>运用 <b>AI 工具</b>辅助短视频创意策划与制作，显著提升内容生产效率</li>
+            <li>独立负责的推文获得 <b>3000+ 阅读量</b></li>
+          </ul>
+          <button class="ev-btn" data-gallery="4">查看署名推文佐证 ›</button>
         </div>
-        <div class="skills-grid">
-            <div class="skill-card glass-card reveal">
-                <div class="sk-icon">💻</div>
-                <h4>办公软件</h4>
-                <div class="sk-tags">
-                    <span class="sk-tag">Word</span><span class="sk-tag">Excel</span>
-                    <span class="sk-tag">PPT</span><span class="sk-tag">WPS</span>
-                </div>
-            </div>
-            <div class="skill-card glass-card reveal">
-                <div class="sk-icon">✍️</div>
-                <h4>内容创作</h4>
-                <div class="sk-tags">
-                    <span class="sk-tag">新闻采编</span><span class="sk-tag">文案撰写</span>
-                    <span class="sk-tag">AI 短视频</span>
-                </div>
-            </div>
-            <div class="skill-card glass-card reveal">
-                <div class="sk-icon">📷</div>
-                <h4>影像制作</h4>
-                <div class="sk-tags">
-                    <span class="sk-tag">拍摄</span><span class="sk-tag">视频剪辑</span>
-                    <span class="sk-tag">后期制作</span>
-                </div>
-            </div>
-            <div class="skill-card glass-card reveal">
-                <div class="sk-icon">📜</div>
-                <h4>资质证书</h4>
-                <div class="sk-tags">
-                    <span class="sk-tag">计算机二级</span><span class="sk-tag">普通话二甲</span>
-                    <span class="sk-tag">红十字救护</span>
-                </div>
-            </div>
+        <div class="intern-side anim" style="--i:2">
+          <div class="istat"><div class="n">3000+</div><div class="l">单篇推文阅读量</div></div>
+          <div class="istat"><div class="n">全流程</div><div class="l">选题 · 采编 · 文案 · 发布</div></div>
+          <div class="istat"><div class="n">AI 辅助</div><div class="l">短视频创意策划与制作</div></div>
         </div>
+      </div>
+      <div class="works anim" style="--i:3">
+        <div class="work"><span class="wk-ic">📰</span><div><h4>项目建设</h4><p>青神发布 · 实习署名推文</p></div><button class="ev-btn" data-gallery="4">佐证 ›</button></div>
+        <div class="work"><span class="wk-ic">🎊</span><div><h4>福利院小年</h4><p>青神发布 · 实习署名推文</p></div><button class="ev-btn" data-gallery="5">佐证 ›</button></div>
+        <div class="work"><span class="wk-ic">🏮</span><div><h4>新春游神</h4><p>青神发布 · 实习署名推文</p></div><button class="ev-btn" data-gallery="6">佐证 ›</button></div>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Contact -->
-<section class="contact-section" id="contact">
-    <div class="container">
-        <div class="section-header centered reveal">
-            <p class="section-label">Get in Touch</p>
-            <h2 class="section-title">联系我</h2>
-        </div>
-        <div class="contact-inner reveal">
-            <div class="contact-card glass-card">
-                <span class="cc-icon">📧</span>
-                <div>
-                    <p class="cc-label">邮箱</p>
-                    <p class="cc-value"><a href="mailto:2369955175@qq.com">2369955175@qq.com</a></p>
-                </div>
-            </div>
-            <div class="contact-card glass-card">
-                <span class="cc-icon">📱</span>
-                <div>
-                    <p class="cc-label">电话</p>
-                    <p class="cc-value"><a href="tel:15883346247">15883346247</a></p>
-                </div>
-            </div>
-        </div>
+  <!-- 4 COMPETITIONS & HONORS -->
+  <section class="slide" data-title="竞赛与荣誉">
+    <div class="wrap">
+      <div class="anim" style="--i:0"><div class="eyebrow">03 · Competitions & Honors</div><h2 class="sec-title">竞赛与荣誉</h2><p class="sec-desc">在竞赛、班级建设与文体活动中锤炼能力，收获来自学校与学院的认可。</p></div>
+      <div class="sub-label anim" style="--i:1">竞赛项目</div>
+      <div class="comp-grid">
+        <div class="proj anim" style="--i:2"><div class="meta">竞赛 · 2026</div><h4>第十届大学生电子商务竞赛（实战赛）</h4><p>作为<b>团队核心成员</b>参与校级实战赛，围绕真实商业场景完成策划与执行，斩获<b>一等奖</b>。</p></div>
+        <div class="proj anim" style="--i:3"><div class="meta">班级建设 · 2025</div><h4>我的支部我的团 · 班级团支部建设</h4><p>牵头筹备系列活动，作为班长带领班级获文学院第十四届<b>二等奖</b>。</p><button class="ev-btn" data-gallery="1">查看获奖证书 ›</button></div>
+        <div class="proj anim" style="--i:4"><div class="meta">影像 · 2025</div><h4>拾光·2025 · 视频剪辑创作</h4><p>以独立参赛选手身份参与校级活动，完成视频剪辑创作并获<b>三等奖</b>。</p><button class="ev-btn" data-gallery="0">查看获奖证书 ›</button></div>
+      </div>
+      <div class="sub-label anim" style="--i:5">荣誉奖项</div>
+      <div class="awards" style="margin-top:10px">
+        <div class="award anim" style="--i:6"><div class="rk">🥉</div><h4>大学生写作演讲竞赛三等奖</h4><p class="nt">校级 · 2026</p></div>
+        <div class="award anim" style="--i:7"><div class="rk">🏅</div><h4>春季趣味运动会体育道德风尚奖</h4><p class="nt">文学院 · 2026</p></div>
+        <div class="award anim" style="--i:8"><div class="rk">✨</div><h4>学生干部考核优秀</h4><p class="nt">99 分 · 2025 — 2026 学年</p><button class="ev-btn" data-gallery="3">佐证 ›</button></div>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-    <p>© 2026 张子沐 · 期待与您交流</p>
-</footer>
+  <!-- 5 SKILLS -->
+  <section class="slide" data-title="技能证书">
+    <div class="wrap center">
+      <div class="anim" style="--i:0"><div class="eyebrow">04 · Skills & Certificates</div><h2 class="sec-title">技能与证书</h2><p class="sec-desc" style="margin-left:auto;margin-right:auto">内容创作、影像制作与办公协作的综合能力。</p></div>
+      <div class="skills">
+        <div class="skill anim" style="--i:1"><div class="ic">💻</div><h4>办公软件</h4><div class="tags"><span class="stag">Word</span><span class="stag">Excel</span><span class="stag">PPT</span><span class="stag">WPS</span></div></div>
+        <div class="skill anim" style="--i:2"><div class="ic">✍️</div><h4>内容创作</h4><div class="tags"><span class="stag">新闻采编</span><span class="stag">文案撰写</span><span class="stag">AI 短视频</span></div></div>
+        <div class="skill anim" style="--i:3"><div class="ic">📷</div><h4>影像制作</h4><div class="tags"><span class="stag">拍摄</span><span class="stag">视频剪辑</span><span class="stag">后期制作</span></div></div>
+        <div class="skill anim" style="--i:4"><div class="ic">📜</div><h4>资质证书</h4><div class="tags"><span class="stag">CET-4 · 486</span><span class="stag">计算机二级</span><span class="stag">WPS 高级应用</span></div><button class="ev-btn" data-gallery="2" style="margin-top:12px">查看聘书 ›</button></div>
+      </div>
+    </div>
+  </section>
 
-<!-- ===== Scripts ===== -->
+  <!-- 7 CONTACT -->
+  <section class="slide" data-title="联系我">
+    <div class="wrap center">
+      <div class="anim" style="--i:0"><div class="eyebrow">05 · Get in Touch</div><h2 class="sec-title">期待与你交流</h2></div>
+      <div class="contact-cards">
+        <div class="cc anim" style="--i:1"><span class="ic">📧</span><div><div class="lb">邮箱</div><div class="vl"><a href="mailto:2369955175@qq.com">2369955175@qq.com</a></div></div></div>
+        <div class="cc anim" style="--i:2"><span class="ic">📱</span><div><div class="lb">电话</div><div class="vl"><a href="tel:15883346247">15883346247</a></div></div></div>
+        <div class="cc anim" style="--i:3"><span class="ic">💻</span><div><div class="lb">GitHub</div><div class="vl"><a href="https://github.com/tzuum" target="_blank" rel="noopener">github.com/tzuum</a></div></div></div>
+      </div>
+      <div class="ending anim" style="--i:4">用文字与影像，讲好每一个值得被记住的故事。</div>
+      <p class="anim" style="--i:5;color:var(--ink3);font-size:.75rem;margin-top:22px">© 2026 张子沐 · 感谢观看</p>
+    </div>
+  </section>
+
+</main>
+
+<div class="overlay" id="overlay">
+  <button class="menu-close" id="menuClose" aria-label="关闭">×</button>
+  <div class="menu-panel"><h3>演示目录 · Contents</h3><div class="menu-list" id="menuList"></div></div>
+</div>
+
+<div class="lb" id="lb">
+  <div class="lb-head">
+    <div class="lb-count"><b id="lbCur">01</b> / <span id="lbTotal">07</span> · 佐证材料</div>
+    <button class="lb-close" id="lbClose" aria-label="关闭">×</button>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-arrow" id="lbPrev" aria-label="上一张">‹</button>
+    <div class="lb-imgbox" id="lbImgbox"><img id="lbImg" src="" alt="佐证材料"></div>
+    <button class="lb-arrow" id="lbNext" aria-label="下一张">›</button>
+  </div>
+  <div class="lb-info"><h4 id="lbTitle"></h4><p id="lbDesc"></p></div>
+  <div class="lb-thumbs" id="lbThumbs"></div>
+</div>
+
 <script>
-// ===== Mobile Nav =====
-(function() {
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
-    links.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { links.classList.remove('open'); });
-    });
+/* ===== Gallery data ===== */
+var GALLERY=[
+  {src:"assets/award-shiguang.jpg",title:"拾光·2025 视频剪辑三等奖证书",desc:"湖南师范大学拾光·2025 校级活动 · 2025.12 · 文学院团委"},
+  {src:"assets/award-zhidu.jpg",title:"我的支部我的团 · 二等奖证书",desc:"文学院第十四届 · 2025.11 · 授予 2025 级戏剧影视文学十班团支部"},
+  {src:"assets/cert-rongmei.jpg",title:"星空大学生融媒体中心 聘书",desc:"聘任影像传媒部职员 · 2025.09 — 2026.06 · 学生工作部"},
+  {src:"assets/cert-ganbu.jpg",title:"学生干部考核结果公示",desc:"2025 级戏剧影视文学 · 班长岗 · 99 分 · 优秀"},
+  {src:"assets/article-project.jpg",title:"实习署名推文 · 项目建设",desc:"青神发布 · 全媒体记者署名（实习）· 2026.01"},
+  {src:"assets/article-fuli.jpg",title:"实习署名推文 · 福利院小年",desc:"青神发布 · 全媒体记者署名（实习）· 2026.02"},
+  {src:"assets/article-youshen.jpg",title:"实习署名推文 · 新春游神",desc:"青神发布 · 全媒体记者署名（实习）· 2026.02"}
+];
+
+/* ===== Slides & navigation ===== */
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var n=slides.length,cur=0,locked=false;
+var dotsBox=document.getElementById('dots'),menuList=document.getElementById('menuList');
+var progress=document.getElementById('progress'),folioCur=document.getElementById('folioCur'),curNo=document.getElementById('curNo');
+var prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn');
+var pad=function(x){return (x<10?'0':'')+x};
+
+slides.forEach(function(s,i){
+  var d=document.createElement('div'); d.className='dot'+(i===0?' on':''); d.dataset.go=i;
+  d.title=s.dataset.title; dotsBox.appendChild(d);
+  var m=document.createElement('div'); m.className='menu-item'+(i===0?' on':''); m.dataset.go=i;
+  m.innerHTML='<span class="no">'+pad(i+1)+'</span><span class="tx">'+s.dataset.title+'</span>';
+  menuList.appendChild(m);
+});
+
+function go(i){
+  if(i<0||i>=n||i===cur||locked)return;
+  locked=true;
+  var old=slides[cur]; old.classList.add('exit'); old.classList.remove('active');
+  cur=i;
+  var now=slides[cur];
+  now.classList.remove('exit'); now.scrollTop=0;
+  // 重启入场动画：先移除 active，再强制重排，然后加回 active 触发 animation
+  now.classList.remove('active');
+  void now.offsetWidth;
+  now.classList.add('active');
+  setTimeout(function(){old.classList.remove('exit');locked=false},650);
+  updateChrome();
+  if(cur===0)runCounters();
+}
+function updateChrome(){
+  progress.style.width=((cur+1)/n*100)+'%';
+  folioCur.textContent=pad(cur+1); curNo.textContent=pad(cur+1);
+  [].forEach.call(dotsBox.children,function(d,i){d.classList.toggle('on',i===cur)});
+  [].forEach.call(menuList.children,function(m,i){m.classList.toggle('on',i===cur)});
+  prevBtn.disabled=(cur===0); nextBtn.disabled=(cur===n-1);
+}
+function runCounters(){
+  slides[0].querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseFloat(el.dataset.count),suffix=el.dataset.suffix||'',start=null,dur=1100;
+    if(el.dataset.done)return; el.dataset.done='1';
+    function step(t){if(!start)start=t;var p=Math.min((t-start)/dur,1),e=1-Math.pow(1-p,3),v=target*e;
+      el.textContent=(target<10?v.toFixed(2):Math.round(v).toLocaleString())+suffix;
+      if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });
+}
+
+prevBtn.addEventListener('click',function(){go(cur-1)});
+nextBtn.addEventListener('click',function(){go(cur+1)});
+document.addEventListener('click',function(e){
+  var g=e.target.closest('[data-go]'); if(g){go(+g.dataset.go);closeMenu()}
+});
+dotsBox.addEventListener('click',function(e){var d=e.target.closest('.dot');if(d)go(+d.dataset.go)});
+menuList.addEventListener('click',function(e){var m=e.target.closest('.menu-item');if(m){go(+m.dataset.go);closeMenu()}});
+
+document.addEventListener('keydown',function(e){
+  if(lbOpen){
+    if(e.key==='Escape')closeLightbox();
+    else if(e.key==='ArrowLeft')lbStep(-1);
+    else if(e.key==='ArrowRight')lbStep(1);
+    return;
+  }
+  if(overlay.classList.contains('open')){if(e.key==='Escape')closeMenu();return;}
+  if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home'){go(0)} else if(e.key==='End'){go(n-1)}
+});
+
+var wheelLock=false;
+window.addEventListener('wheel',function(e){
+  if(lbOpen||overlay.classList.contains('open'))return;
+  if(Math.abs(e.deltaY)<18)return;
+  if(wheelLock)return; wheelLock=true;
+  go(cur+(e.deltaY>0?1:-1));
+  setTimeout(function(){wheelLock=false},760);
+},{passive:true});
+
+var tx=0,ty=0;
+window.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+window.addEventListener('touchend',function(e){
+  if(lbOpen)return;
+  var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(cur+(dx<0?1:-1));
+},{passive:true});
+
+/* ===== Menu ===== */
+var overlay=document.getElementById('overlay');
+document.getElementById('menuBtn').addEventListener('click',function(){overlay.classList.add('open')});
+document.getElementById('menuClose').addEventListener('click',closeMenu);
+overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu()});
+function closeMenu(){overlay.classList.remove('open')}
+
+/* ===== Lightbox ===== */
+var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbImgbox=document.getElementById('lbImgbox');
+var lbTitle=document.getElementById('lbTitle'),lbDesc=document.getElementById('lbDesc'),lbCur=document.getElementById('lbCur');
+var lbThumbs=document.getElementById('lbThumbs'),lbOpen=false,lbIndex=0;
+document.getElementById('lbTotal').textContent=pad(GALLERY.length);
+GALLERY.forEach(function(g,i){
+  var b=document.createElement('button');b.className='lb-thumb';b.innerHTML='<img src="'+g.src+'" alt="">';
+  b.addEventListener('click',function(){lbShow(i)});lbThumbs.appendChild(b);
+});
+function lbShow(i){
+  lbIndex=(i+GALLERY.length)%GALLERY.length;
+  var g=GALLERY[lbIndex];
+  lbImgbox.classList.add('swap');
+  setTimeout(function(){
+    lbImg.src=g.src; lbTitle.textContent=g.title; lbDesc.textContent=g.desc;
+    lbCur.textContent=pad(lbIndex+1);
+    [].forEach.call(lbThumbs.children,function(b,k){b.classList.toggle('on',k===lbIndex)});
+    lbImgbox.classList.remove('swap');
+  },180);
+}
+function lbStep(d){lbShow(lbIndex+d)}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-gallery]'); if(b){openLightbox(+b.dataset.gallery)}
+});
+function openLightbox(i){lbOpen=true;lb.classList.add('open');lbShow(i)}
+function closeLightbox(){lbOpen=false;lb.classList.remove('open')}
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+document.getElementById('lbPrev').addEventListener('click',function(){lbStep(-1)});
+document.getElementById('lbNext').addEventListener('click',function(){lbStep(1)});
+lb.addEventListener('click',function(e){if(e.target===lb)closeLightbox()});
+
+/* ===== Cursor glow ===== */
+(function(){
+  var glow=document.getElementById('cursorGlow'),mx=-500,my=-500,cx=-500,cy=-500;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY});
+  document.addEventListener('mouseleave',function(){glow.style.opacity='0'});
+  document.addEventListener('mouseenter',function(){glow.style.opacity='1'});
+  (function loop(){cx+=(mx-cx)*.09;cy+=(my-cy)*.09;glow.style.left=cx+'px';glow.style.top=cy+'px';requestAnimationFrame(loop)})();
 })();
 
-// ===== Cursor Glow =====
-(function() {
-    var glow = document.getElementById('cursorGlow');
-    var mouseX = -500, mouseY = -500;
-    var curX = -500, curY = -500;
-
-    document.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX; mouseY = e.clientY;
-    });
-
-    // Hide glow when mouse leaves
-    document.addEventListener('mouseleave', function() {
-        glow.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', function() {
-        glow.style.opacity = '1';
-    });
-
-    function animate() {
-        curX += (mouseX - curX) * 0.08;
-        curY += (mouseY - curY) * 0.08;
-        glow.style.left = curX + 'px';
-        glow.style.top = curY + 'px';
-        requestAnimationFrame(animate);
-    }
-    animate();
+/* ===== Starfield ===== */
+(function(){
+  var c=document.getElementById('starfield'),ctx=c&&c.getContext('2d'),stars=[],N=110,w,h;
+  if(!ctx)return;
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}resize();addEventListener('resize',resize);
+  for(var i=0;i<N;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.3+.3,sp:Math.random()*.012+.004,o:Math.random()*6.28,dx:(Math.random()-.5)*.12,dy:(Math.random()-.5)*.12});
+  (function draw(){ctx.clearRect(0,0,w,h);var t=Date.now()*.001;
+    stars.forEach(function(s){
+      var a=.25+Math.sin(t*s.sp*60+s.o)*.28, k=s.o/6.28;
+      var col=k<.72?'255,255,255':(k<.87?'242,184,119':'183,155,255');
+      ctx.fillStyle='rgba('+col+','+a.toFixed(2)+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill();
+      s.x+=s.dx;s.y+=s.dy;if(s.x<0)s.x=w;if(s.x>w)s.x=0;if(s.y<0)s.y=h;if(s.y>h)s.y=0;
+    });requestAnimationFrame(draw)})();
 })();
 
-// ===== Starfield =====
-(function() {
-    var canvas = document.getElementById('starfield');
-    var ctx = canvas.getContext('2d');
-    var stars = [];
-    var STAR_COUNT = 120;
-    var w, h;
-
-    function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Initialize stars
-    for (var i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: Math.random() * 1.4 + .3,
-            twinkleSpeed: Math.random() * .015 + .005,
-            twinkleOffset: Math.random() * Math.PI * 2,
-            driftX: (Math.random() - .5) * .15,
-            driftY: (Math.random() - .5) * .15
-        });
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, w, h);
-        var time = Date.now() * .001;
-
-        for (var i = 0; i < stars.length; i++) {
-            var s = stars[i];
-
-            // Twinkle
-            var alpha = .3 + Math.sin(time * s.twinkleSpeed * 60 + s.twinkleOffset) * .35;
-
-            // Warm color mix: some gold, some white, some purple
-            var rnd = s.twinkleOffset / (Math.PI * 2); // 0..1
-            var color;
-            if (rnd < .7) color = '255,255,255';
-            else if (rnd < .85) color = '240,168,96';
-            else color = '167,139,250';
-
-            ctx.fillStyle = 'rgba(' + color + ',' + alpha.toFixed(2) + ')';
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Slow drift
-            s.x += s.driftX;
-            s.y += s.driftY;
-            if (s.x < 0) s.x = w;
-            if (s.x > w) s.x = 0;
-            if (s.y < 0) s.y = h;
-            if (s.y > h) s.y = 0;
-        }
-
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
-
-// ===== Scroll Reveal =====
-(function() {
-    var reveals = document.querySelectorAll('.reveal');
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: .15, rootMargin: '0px 0px -30px 0px' });
-
-    reveals.forEach(function(el) { observer.observe(el); });
-})();
+updateChrome();
+setTimeout(runCounters,400);
+// 脚本完整运行后才启用入场动画；若脚本被拦截，内容仍默认可见，不会空白
+document.body.classList.add('js-anim');
 </script>
 </body>
 </html>
